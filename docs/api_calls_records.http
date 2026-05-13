@@ -1,0 +1,39 @@
+### Welcome route
+GET http://localhost:3000/
+
+### Get all records
+GET http://localhost:3000/api/records
+
+### Create record
+POST http://localhost:3000/api/records
+Content-Type: application/json
+
+{
+  "title": "Kind of Blue",
+  "artist": "Miles Davis",
+  "label": "Columbia",
+  "genre": "Jazz",
+  "releaseYear": 1959,
+  "format": "LP",
+  "tracks": [
+    {
+      "title": "So What",
+      "duration": "9:22"
+    }
+  ],
+  "pressingInfo": {
+    "country": "US",
+    "year": 1959,
+    "color": "Black",
+    "notes": "Original mono pressing"
+  }
+}
+
+### Create invalid record
+POST http://localhost:3000/api/records
+Content-Type: application/json
+
+{
+  "title": "",
+  "artist": "Miles Davis"
+}
