@@ -1,7 +1,17 @@
+require('dotenv').config();
+
 const app = require('./app');
+const connectDB = require('./config/db');
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`VinylVault API is running on port ${PORT}`);
-});
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`VinylVault API is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error('MongoDB connection failed:', error.message);
+    process.exit(1);
+  });
