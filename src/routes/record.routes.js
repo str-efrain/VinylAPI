@@ -8,11 +8,13 @@ const {
 
 const router = express.Router();
 
+// GET /api/records - Get all records
 router.get('/', async (req, res) => {
   const records = await Record.find().sort('artist title');
   res.send(records);
 });
 
+// GET /api/records/:id - Get record by ID
 router.get('/:id', async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).send('Invalid record ID.');
@@ -27,6 +29,7 @@ router.get('/:id', async (req, res) => {
   res.send(record);
 });
 
+// POST /api/records - Create a new record
 router.post('/', async (req, res) => {
   const { error } = validateRecord(req.body);
 
@@ -49,6 +52,7 @@ router.post('/', async (req, res) => {
   res.status(201).send(record);
 });
 
+// PATCH /api/records/:id - Update a record
 router.patch('/:id', async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).send('Invalid record ID.');
@@ -70,6 +74,21 @@ router.patch('/:id', async (req, res) => {
       runValidators: true
     }
   );
+
+  if (!record) {
+    return res.status(404).send('Record not found.');
+  }
+
+  res.send(record);
+});
+
+// DELETE /api/records/:id - Delete a record
+router.delete('/:id', async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).send('Invalid record ID.');
+  }
+
+  const record = await Record.findByIdAndDelete(req.params.id);
 
   if (!record) {
     return res.status(404).send('Record not found.');

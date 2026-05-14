@@ -71,3 +71,12 @@ Content-Type: application/json
 {
   "releaseYear": 1000
 }
+
+### Delete record
+DELETE http://localhost:3000/api/records/6a048493dd931d3af55ca73f
+
+### Delete record with invalid ID
+DELETE http://localhost:3000/api/records/abc
+
+### Delete record with valid-looking but missing ID
+DELETE http://localhost:3000/api/records/507f1f77bcf86cd799439011
