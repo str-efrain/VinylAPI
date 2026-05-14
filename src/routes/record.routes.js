@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const Record = require('../models/Record');
 const validateRecord = require('../validation/record.validation');
 
@@ -7,6 +8,20 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const records = await Record.find().sort('artist title');
   res.send(records);
+});
+
+router.get('/:id', async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).send('Invalid record ID.');
+  }
+
+  const record = await Record.findById(req.params.id);
+
+  if (!record) {
+    return res.status(404).send('Record not found.');
+  }
+
+  res.send(record);
 });
 
 router.post('/', async (req, res) => {
