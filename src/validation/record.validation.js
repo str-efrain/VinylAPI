@@ -29,4 +29,22 @@ function validateRecord(record) {
   return schema.validate(record);
 }
 
-module.exports = validateRecord;
+function validateRecordUpdate(record) {
+  const schema = Joi.object({
+    title: Joi.string().min(1).max(100),
+    artist: Joi.string().min(1).max(100),
+    label: Joi.string().max(100),
+    genre: Joi.string().max(50),
+    releaseYear: Joi.number().integer().min(1900).max(currentYear),
+    format: Joi.string().valid('LP', 'EP', 'Single', 'Box Set'),
+    tracks: Joi.array().items(trackSchema).min(1),
+    pressingInfo: pressingInfoSchema
+  }).min(1);
+
+  return schema.validate(record);
+}
+
+module.exports = {
+  validateRecord,
+  validateRecordUpdate
+};

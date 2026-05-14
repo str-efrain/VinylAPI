@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Record = require('../models/Record');
-const validateRecord = require('../validation/record.validation');
+const {
+  validateRecord,
+  validateRecordUpdate
+} = require('../validation/record.validation');
 
 const router = express.Router();
 
@@ -44,6 +47,35 @@ router.post('/', async (req, res) => {
 
   await record.save();
   res.status(201).send(record);
+});
+
+router.patch('/:id', async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).send('Invalid record ID.');
+  }
+
+  const { error } = validateRecordUpdate(req.body);
+
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  const record = await Record.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: req.body
+    },
+    {
+      new: true,
+      runValidators: true
+    }
+  );
+
+  if (!record) {
+    return res.status(404).send('Record not found.');
+  }
+
+  res.send(record);
 });
 
 module.exports = router;

@@ -4,6 +4,15 @@ GET http://localhost:3000/
 ### Get all records
 GET http://localhost:3000/api/records
 
+### Get record by invalid ID
+GET http://localhost:3000/api/records/abc
+
+### Get record by valid-looking but missing ID
+GET http://localhost:3000/api/records/507f1f77bcf86cd799439011
+
+### Get record by ID
+GET http://localhost:3000/api/records/6a048493dd931d3af55ca73f
+
 ### Create record
 POST http://localhost:3000/api/records
 Content-Type: application/json
@@ -36,4 +45,29 @@ Content-Type: application/json
 {
   "title": "",
   "artist": "Miles Davis"
+}
+
+### Update record
+PATCH http://localhost:3000/api/records/6a048493dd931d3af55ca73f
+Content-Type: application/json
+
+{
+  "genre": "Jazz",
+  "label": "Columbia Records"
+}
+
+### Update record with invalid ID
+PATCH http://localhost:3000/api/records/abc
+Content-Type: application/json
+
+{
+  "genre": "Jazz"
+}
+
+### Update record with invalid data
+PATCH http://localhost:3000/api/records/6a048493dd931d3af55ca73f
+Content-Type: application/json
+
+{
+  "releaseYear": 1000
 }
