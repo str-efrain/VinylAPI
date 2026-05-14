@@ -1,0 +1,39 @@
+### Register user
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "test@example.com",
+  "password": "password123",
+  "profile": {
+    "displayName": "Test Collector",
+    "bio": "Collects classic rock records.",
+    "country": "Belgium"
+  },
+  "preferences": {
+    "favoriteGenres": ["Rock", "Metal"],
+    "favoriteFormats": ["LP"]
+  }
+}
+
+### Register user with invalid data
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "A",
+  "email": "not-an-email",
+  "password": "short"
+}
+
+### Register user trying to become admin
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Sneaky User",
+  "email": "sneaky@example.com",
+  "password": "password123",
+  "role": "admin"
+}
