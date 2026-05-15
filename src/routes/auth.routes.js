@@ -1,7 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { validateRegister } = require('../validation/auth.validation');
+const {
+  validateRegister,
+  validateLogin
+} = require('../validation/auth.validation');
 
 const router = express.Router();
 
@@ -40,6 +44,49 @@ router.post('/register', async (req, res, next) => {
       role: user.role,
       profile: user.profile,
       preferences: user.preferences
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// POST /api/auth/login - Login an existing user
+router.post('/login', async (req, res, next) => {
+  try {
+    const { error } = validateLogin(req.body);
+
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+
+    //Check of user bestaat
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(400).send('Email does not exist.');
+    }
+
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+
+    if (!validPassword) {
+      return res.status(400).send('Invalid password.');
+    }
+
+
+    //JWT genereren
+    const token = jwt.sign(
+      {
+        _id: user._id,
+        role: user.role //Rol er in zodat rol makkelijk kan worden gecheckt
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRES_IN
+      }
+    );
+
+    res.send({
+      token,
+      expiresIn: process.env.JWT_EXPIRES_IN //Zodat gebruiker ook kan zien hoelang token geldig is
     });
   } catch (error) {
     next(error);
