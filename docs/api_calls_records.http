@@ -15,6 +15,7 @@ GET http://localhost:3000/api/records/6a048493dd931d3af55ca73f
 
 ### Create record
 POST http://localhost:3000/api/records
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
 Content-Type: application/json
 
 {
@@ -40,6 +41,7 @@ Content-Type: application/json
 
 ### Create invalid record
 POST http://localhost:3000/api/records
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
 Content-Type: application/json
 
 {
@@ -48,7 +50,8 @@ Content-Type: application/json
 }
 
 ### Update record
-PATCH http://localhost:3000/api/records/6a048493dd931d3af55ca73f
+PATCH http://localhost:3000/api/records/6a062cdca8b84026656430b5
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg4NjAzNTIsImV4cCI6MTc3ODg2Mzk1Mn0.Z5wppv1Cmdrm7vI8KFpE0Dl2vBypzNIxweZ_j_8cJ00
 Content-Type: application/json
 
 {
@@ -58,6 +61,7 @@ Content-Type: application/json
 
 ### Update record with invalid ID
 PATCH http://localhost:3000/api/records/abc
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg4NjAzNTIsImV4cCI6MTc3ODg2Mzk1Mn0.Z5wppv1Cmdrm7vI8KFpE0Dl2vBypzNIxweZ_j_8cJ00
 Content-Type: application/json
 
 {
@@ -66,6 +70,7 @@ Content-Type: application/json
 
 ### Update record with invalid data
 PATCH http://localhost:3000/api/records/6a048493dd931d3af55ca73f
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg4NjAzNTIsImV4cCI6MTc3ODg2Mzk1Mn0.Z5wppv1Cmdrm7vI8KFpE0Dl2vBypzNIxweZ_j_8cJ00
 Content-Type: application/json
 
 {
@@ -74,9 +79,12 @@ Content-Type: application/json
 
 ### Delete record
 DELETE http://localhost:3000/api/records/6a048493dd931d3af55ca73f
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg4NjAzNTIsImV4cCI6MTc3ODg2Mzk1Mn0.Z5wppv1Cmdrm7vI8KFpE0Dl2vBypzNIxweZ_j_8cJ00
 
 ### Delete record with invalid ID
 DELETE http://localhost:3000/api/records/abc
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg4NjAzNTIsImV4cCI6MTc3ODg2Mzk1Mn0.Z5wppv1Cmdrm7vI8KFpE0Dl2vBypzNIxweZ_j_8cJ00
 
 ### Delete record with valid-looking but missing ID
 DELETE http://localhost:3000/api/records/507f1f77bcf86cd799439011
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg4NjAzNTIsImV4cCI6MTc3ODg2Mzk1Mn0.Z5wppv1Cmdrm7vI8KFpE0Dl2vBypzNIxweZ_j_8cJ00

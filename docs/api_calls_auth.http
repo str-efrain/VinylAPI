@@ -3,12 +3,12 @@ POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "Test User",
-  "email": "test@example.com",
+  "name": "Efrain Test",
+  "email": "efrain@example.com",
   "password": "password123",
   "profile": {
     "displayName": "Test Collector",
-    "bio": "Collects classic rock records.",
+    "bio": "Just a test user who loves vinyl records.",
     "country": "Belgium"
   },
   "preferences": {
@@ -43,7 +43,7 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "test@example.com",
+  "email": "efrain@example.com",
   "password": "password123"
 }
 
@@ -52,7 +52,7 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "test@example.com",
+  "email": "efrain@example.com",
   "password": "wrongpassword"
 }
 
