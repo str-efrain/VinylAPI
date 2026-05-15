@@ -2,12 +2,28 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const authMiddleware = require('../middleware/auth.middleware');
 const {
   validateRegister,
   validateLogin
 } = require('../validation/auth.validation');
 
 const router = express.Router();
+
+// GET /api/auth/me - Get the logged in user
+router.get('/me', authMiddleware, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id).select('-password'); //Selecteer alle velden behalve het wachtwoord
+
+    if (!user) {
+      return res.status(404).send('User not found.');
+    }
+
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // POST /api/auth/register - Register a new user
 router.post('/register', async (req, res, next) => {

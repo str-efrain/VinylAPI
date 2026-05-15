@@ -64,3 +64,14 @@ Content-Type: application/json
   "email": "not-an-email",
   "password": "short"
 }
+
+### Get current user
+GET http://localhost:3000/api/auth/me
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA2MzcxNTBiMzEzOTAwMTI0NTA3YWMiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3ODg1ODQzMSwiZXhwIjoxNzc4ODYyMDMxfQ.-47mKdsak6srLYeapo9J9qAOnYzdc2jDqw_B-xbe5k0
+
+### Get current user without token
+GET http://localhost:3000/api/auth/me
+
+### Get current user with invalid token
+GET http://localhost:3000/api/auth/me
+x-auth-token: invalid-token
