@@ -5,6 +5,8 @@ const {
   validateRecord,
   validateRecordUpdate,
 } = require("../validation/record.validation");
+const authMiddleware = require("../middleware/auth.middleware");
+const adminMiddleware = require("../middleware/admin.middleware");
 
 const router = express.Router();
 
@@ -38,7 +40,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // POST /api/records - Create a new record
-router.post("/", async (req, res, next) => {
+router.post("/", authMiddleware, adminMiddleware, async (req, res, next) => {
   try {
     const { error } = validateRecord(req.body);
 
@@ -65,7 +67,7 @@ router.post("/", async (req, res, next) => {
 });
 
 // PATCH /api/records/:id - Update a record
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", authMiddleware, adminMiddleware, async (req, res, next) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).send("Invalid record ID.");
@@ -99,7 +101,7 @@ router.patch("/:id", async (req, res, next) => {
 });
 
 // DELETE /api/records/:id - Delete a record
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", authMiddleware, adminMiddleware, async (req, res, next) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).send("Invalid record ID.");
