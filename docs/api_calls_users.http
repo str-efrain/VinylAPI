@@ -1,6 +1,6 @@
 ### Get all users
 GET http://localhost:3000/api/users
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg4NjExNDEsImV4cCI6MTc3ODg2NDc0MX0.fFYrd4_-vxAvnJc375PoI7fds7zGUCUpfZG7Tdr0ZNg
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
 
 ### Get all users without token
 GET http://localhost:3000/api/users
@@ -12,3 +12,60 @@ x-auth-token: invalid-token
 ### Get all users with regular user token
 GET http://localhost:3000/api/users
 x-auth-token: REPLACE_WITH_USER_TOKEN
+
+### Get user by ID
+GET http://localhost:3000/api/users/6a0637150b313900124507ac
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg5Mzc5NDUsImV4cCI6MTc3ODk0MTU0NX0.4iTRlzBF-S-D4U6qM2Zua6eKwBwmlLJBl0ELczjJVNE
+
+### Get user by invalid ID
+GET http://localhost:3000/api/users/abc
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+
+### Get user by valid-looking but missing ID
+GET http://localhost:3000/api/users/507f1f77bcf86cd799439011
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+
+### Update user
+PATCH http://localhost:3000/api/users/6a0637150b313900124507ac
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg5Mzc5NDUsImV4cCI6MTc3ODk0MTU0NX0.4iTRlzBF-S-D4U6qM2Zua6eKwBwmlLJBl0ELczjJVNE
+Content-Type: application/json
+
+{
+  "name": "Updated Test User",
+  "profile": {
+    "displayName": "Updated Collector",
+    "bio": "Collects rock and metal records.",
+    "country": "Belgium"
+  },
+  "preferences": {
+    "favoriteGenres": ["Rock", "Metal"],
+    "favoriteFormats": ["LP", "Box Set"]
+  }
+}
+
+### Update user with invalid ID
+PATCH http://localhost:3000/api/users/abc
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+Content-Type: application/json
+
+{
+  "name": "Updated Test User"
+}
+
+### Update user with invalid data
+PATCH http://localhost:3000/api/users/REPLACE_WITH_USER_ID
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+Content-Type: application/json
+
+{
+  "name": "A"
+}
+
+### Update user trying to change role
+PATCH http://localhost:3000/api/users/6a0637150b313900124507ac
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg5Mzc5NDUsImV4cCI6MTc3ODk0MTU0NX0.4iTRlzBF-S-D4U6qM2Zua6eKwBwmlLJBl0ELczjJVNE
+Content-Type: application/json
+
+{
+  "role": "admin"
+}

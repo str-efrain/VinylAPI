@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const authMiddleware = require("../middleware/auth.middleware");
 const adminMiddleware = require("../middleware/admin.middleware");
+const { validateUserUpdate } = require("../validation/user.validation");
 
 const router = express.Router();
 
@@ -33,6 +34,40 @@ router.get("/:id", authMiddleware, adminMiddleware, async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+});
+
+// PATCH /api/users/:id - Update user profile/preferences (admin only)
+router.patch("/:id", authMiddleware, adminMiddleware, async (req, res, next) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).send("Invalid user ID.");
+    }
+
+    const { error } = validateUserUpdate(req.body);
+
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
