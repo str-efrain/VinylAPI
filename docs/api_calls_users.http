@@ -14,8 +14,8 @@ GET http://localhost:3000/api/users
 x-auth-token: REPLACE_WITH_USER_TOKEN
 
 ### Get user by ID
-GET http://localhost:3000/api/users/6a0637150b313900124507ac
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg5Mzc5NDUsImV4cCI6MTc3ODk0MTU0NX0.4iTRlzBF-S-D4U6qM2Zua6eKwBwmlLJBl0ELczjJVNE
+GET http://localhost:3000/api/users/REPLACE_WITH_USER_ID
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
 
 ### Get user by invalid ID
 GET http://localhost:3000/api/users/abc
@@ -26,8 +26,8 @@ GET http://localhost:3000/api/users/507f1f77bcf86cd799439011
 x-auth-token: REPLACE_WITH_ADMIN_TOKEN
 
 ### Update user
-PATCH http://localhost:3000/api/users/6a0637150b313900124507ac
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg5Mzc5NDUsImV4cCI6MTc3ODk0MTU0NX0.4iTRlzBF-S-D4U6qM2Zua6eKwBwmlLJBl0ELczjJVNE
+PATCH http://localhost:3000/api/users/REPLACE_WITH_USER_ID
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
 Content-Type: application/json
 
 {
@@ -62,8 +62,52 @@ Content-Type: application/json
 }
 
 ### Update user trying to change role
-PATCH http://localhost:3000/api/users/6a0637150b313900124507ac
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg5Mzc5NDUsImV4cCI6MTc3ODk0MTU0NX0.4iTRlzBF-S-D4U6qM2Zua6eKwBwmlLJBl0ELczjJVNE
+PATCH http://localhost:3000/api/users/REPLACE_WITH_USER_ID
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+Content-Type: application/json
+
+{
+  "role": "admin"
+}
+
+### Update user role
+PATCH http://localhost:3000/api/users/REPLACE_WITH_USER_ID/role
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+Content-Type: application/json
+
+{
+  "role": "admin"
+}
+
+### Update user role to regular user
+PATCH http://localhost:3000/api/users/REPLACE_WITH_USER_ID/role
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+Content-Type: application/json
+
+{
+  "role": "user"
+}
+
+### Update user role with invalid role
+PATCH http://localhost:3000/api/users/REPLACE_WITH_USER_ID/role
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+Content-Type: application/json
+
+{
+  "role": "superadmin"
+}
+
+### Update user role without token
+PATCH http://localhost:3000/api/users/REPLACE_WITH_USER_ID/role
+Content-Type: application/json
+
+{
+  "role": "admin"
+}
+
+### Update user role with regular user token
+PATCH http://localhost:3000/api/users/REPLACE_WITH_USER_ID/role
+x-auth-token: REPLACE_WITH_USER_TOKEN
 Content-Type: application/json
 
 {

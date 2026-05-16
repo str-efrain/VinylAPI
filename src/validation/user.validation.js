@@ -19,6 +19,15 @@ function validateUserUpdate(user) {
   return schema.validate(user);
 }
 
+function validateRoleUpdate(role) {
+  const schema = Joi.object({
+    role: Joi.string().valid('user', 'admin').required()
+  });
+
+  return schema.validate(role);
+}
+
 module.exports = {
-  validateUserUpdate
+  validateUserUpdate,
+  validateRoleUpdate
 };
