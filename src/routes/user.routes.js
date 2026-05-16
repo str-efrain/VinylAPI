@@ -107,4 +107,23 @@ router.patch("/:id", authMiddleware, adminMiddleware, async (req, res, next) => 
   }
 });
 
+// DELETE /api/users/:id - Delete user (admin only)
+router.delete("/:id", authMiddleware, adminMiddleware, async (req, res, next) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).send("Invalid user ID.");
+    }
+
+    const user = await User.findByIdAndDelete(req.params.id).select("-password");
+
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

@@ -70,6 +70,25 @@ Content-Type: application/json
   "role": "admin"
 }
 
+### Delete user
+DELETE http://localhost:3000/api/users/REPLACE_WITH_USER_ID
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+
+### Delete user with invalid ID
+DELETE http://localhost:3000/api/users/abc
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+
+### Delete user with valid-looking but missing ID
+DELETE http://localhost:3000/api/users/507f1f77bcf86cd799439011
+x-auth-token: REPLACE_WITH_ADMIN_TOKEN
+
+### Delete user without token
+DELETE http://localhost:3000/api/users/REPLACE_WITH_USER_ID
+
+### Delete user with regular user token
+DELETE http://localhost:3000/api/users/REPLACE_WITH_USER_ID
+x-auth-token: REPLACE_WITH_USER_TOKEN
+
 ### Update user role
 PATCH http://localhost:3000/api/users/REPLACE_WITH_USER_ID/role
 x-auth-token: REPLACE_WITH_ADMIN_TOKEN
