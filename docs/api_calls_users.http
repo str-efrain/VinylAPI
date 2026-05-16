@@ -1,0 +1,14 @@
+### Get all users
+GET http://localhost:3000/api/users
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3NDExOWQzYTQ1Y2Y1Mzc1YmJhYzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg4NjExNDEsImV4cCI6MTc3ODg2NDc0MX0.fFYrd4_-vxAvnJc375PoI7fds7zGUCUpfZG7Tdr0ZNg
+
+### Get all users without token
+GET http://localhost:3000/api/users
+
+### Get all users with invalid token
+GET http://localhost:3000/api/users
+x-auth-token: invalid-token
+
+### Get all users with regular user token
+GET http://localhost:3000/api/users
+x-auth-token: REPLACE_WITH_USER_TOKEN
